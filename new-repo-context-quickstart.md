@@ -86,7 +86,53 @@ npm run build         # Production build
 
 ---
 
-### 2. Configure File Size Limits
+### 2. Create Path-Scoped Rules
+
+`.claude/rules/` lets you break project instructions out of CLAUDE.md into focused, single-topic files. Rules with a `paths` frontmatter field load **only when Claude opens a matching file** — keeping irrelevant context out of the window and reducing noise.
+
+```
+.claude/
+└── rules/
+    ├── git-workflow.md        # No paths → loads at every session start
+    ├── api-conventions.md     # Scoped to api/src/**
+    └── testing-requirements.md # Scoped to **/*.test.ts
+```
+
+**When to use rules vs CLAUDE.md:**
+
+| Use CLAUDE.md for | Use `.claude/rules/` for |
+|-------------------|--------------------------|
+| Project overview, architecture, build commands | Single-topic conventions |
+| Skill invocation reminders | Per-package tooling (test runner, package manager) |
+| Universal "always do X" workflow rules | File-type-specific standards |
+| Things every session needs | Things only relevant when touching specific files |
+
+**Rule format:**
+
+```markdown
+---
+description: One-line summary shown in /memory list
+paths:
+  - "api/src/**"
+  - "api/test/**"
+---
+
+## Rule Title
+
+Your instruction here. One topic per file.
+```
+
+Omit `paths` for rules that should load unconditionally (like git workflow rules, PR naming conventions).
+
+**Example rules to create for most projects:**
+- `git-workflow.md` — branching strategy, protected branches, commit format (no `paths`)
+- `package-manager.md` — which package manager to use per workspace package (scoped to `**/package.json`)
+- `api-conventions.md` — REST patterns, validation, spec sync requirements (scoped to `api/src/**`)
+- `naming-conventions.md` — file, component, function naming (scoped to source paths)
+
+---
+
+### 3. Configure File Size Limits
 
 **scripts/generate-ai-context.js**
 ```javascript
@@ -403,6 +449,10 @@ my-repo/
 ├── .copilot-instructions        # Coding conventions
 ├── CLAUDE.md                    # Project commands
 ├── .claude/
+│   ├── rules/
+│   │   ├── git-workflow.md         # Universal: loads every session
+│   │   ├── api-conventions.md      # Path-scoped to api/src/**
+│   │   └── naming-conventions.md  # Path-scoped to source files
 │   ├── commands/
 │   │   ├── add-feature.md
 │   │   └── review.md
@@ -426,6 +476,7 @@ my-repo/
 ## Quick Start Checklist
 
 - [ ] Create AGENTS.md, .copilot-instructions, CLAUDE.md
+- [ ] Create `.claude/rules/` — at minimum a git-workflow rule and a naming-conventions rule
 - [ ] Add generate-ai-context.js with file size limits
 - [ ] Setup ai-precommit.sh with drift detection
 - [ ] Create 2-3 JSON indices (patterns, conventions)
