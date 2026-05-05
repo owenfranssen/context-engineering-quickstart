@@ -61,4 +61,5 @@ Once your context is set up, [ai-engineering-plugin](https://github.com/owenfran
 ## Related
 
 - [ai-engineering-plugin](https://github.com/owenfranssen/ai-engineering-plugin) — skills for implementation once context is in place (flow, write-plan, investigate)
+- [ai-engineering-feedback-loop](https://github.com/owenfranssen/ai-engineering-feedback-loop) — capture corrections from AI sessions, extract patterns, and promote them into rules; closes the loop that context engineering opens
 - [Addy Osmani's agent-skills](https://github.com/addyosmani/agent-skills) — source-driven-development and other complementary skills
