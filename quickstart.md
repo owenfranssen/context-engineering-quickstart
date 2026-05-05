@@ -327,7 +327,7 @@ Context engineering isn't a setup task. The system degrades without active maint
 - A refactor happens and the architecture patterns doc still describes the old approach → doc drift
 
 **Lightweight maintenance loop:**
-1. After any AI session that required repeated corrections — note what the correction was and whether a context file could have prevented it
+1. After any AI session that required repeated corrections — capture it with [ai-engineering-feedback-loop](https://github.com/owenfranssen/ai-engineering-feedback-loop) (`node scripts/capture-correction.js`) so patterns surface over time
 2. Monthly — check that linked docs in CLAUDE.md reflect actual file paths and current content
 3. When a significant pattern changes — update the relevant doc before closing the PR (same commit is best)
 
