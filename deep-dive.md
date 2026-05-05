@@ -1,9 +1,9 @@
 # AI Context Engineering Best Practices - EXPANDED EDITION
 ## Technical Implementation Deep Dive
-### Based on ZarkParking Repository Analysis
+### Based on production monorepo analysis
 
 **Last Updated:** 2026-01-21
-**Source Repository:** ZarkParking monorepo
+**Source Repository:** Production Node.js/React monorepo
 **Analysis Agent:** Claude Code exploration of production AI context system
 
 ---
@@ -74,7 +74,7 @@
 
 **Key Insight:** Modern LLMs have 200K+ token windows, but filling them is expensive, slow, and reduces quality.
 
-**ZarkParking's Solution:**
+**Production solution:
 - **Never preload large artifacts** - The 4.1MB `auto-context.md` is a *last resort fallback*, not primary context
 - **Progressive disclosure** - Read targeted files, not entire codebase
 - **Checkpoint every ~10 actions** - Verify intermediate results before continuing
@@ -462,7 +462,7 @@ npx lint-staged
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "== ZarkParking AI Onboarding =="
+echo "== AI Context Onboarding =="
 echo ""
 echo "📚 Claude Code Setup & Documentation:"
 echo "   .claude/README.md           - Complete Claude Code setup guide"
@@ -773,7 +773,7 @@ Document fallback patterns (rag-invocation-patterns.md)
 | Generated snapshot (auto-context.md) | <5MB | <5MB |
 | **TOTAL AI CONTEXT** | - | **<5.2MB** |
 
-**ZarkParking Actual:**
+**Production example:
 ```
 AGENTS.md                      ~3KB
 docs/ai/human-readable guides   ~50KB
@@ -999,7 +999,7 @@ This approach treats AI context as a **first-class engineering artifact** requir
 
 ---
 
-## Appendix: ZarkParking Scripts Reference
+## Appendix: Scripts Reference
 
 ### Core Commands
 
@@ -1037,7 +1037,7 @@ npm run rag:stats                   # Show index statistics
 
 ## Appendix: File Size Reference
 
-**ZarkParking docs/ai/ Directory:**
+**Example docs/ai/ Directory:
 
 | File | Size | Purpose | Edit Policy |
 |------|------|---------|-------------|
@@ -1051,6 +1051,6 @@ npm run rag:stats                   # Show index statistics
 
 ---
 
-**This guide captures all practical implementation patterns from ZarkParking that make their AI context system work at scale.**
+**This guide captures practical implementation patterns from production AI-assisted engineering workflows.**
 
 **The key insight: treat context as a scarce resource, just like memory or CPU, and engineer for efficiency from day one.**
